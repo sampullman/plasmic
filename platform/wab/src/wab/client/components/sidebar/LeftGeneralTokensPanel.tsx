@@ -248,7 +248,7 @@ const LeftGeneralTokensPanel = observer(function LeftGeneralTokensPanel() {
       ) => {
         tokens = naturalSort(tokens, (token) => getFolderTrimmed(token.name));
         const tokenTree = createFolderTreeStructure(tokens, {
-          pathPrefix: `${tokenType}-`,
+          pathPrefix: tokenType,
           getName: (item) => item.name,
           mapper: (item) => mapToTokenPanelRow(item, getTokenValue, dep),
         });

@@ -147,7 +147,7 @@ const LeftComponentsPanel = observer(function LeftComponentsPanel() {
               isReusableComponent(c) &&
               (isHostLessPackage(dep.site) || !isCodeComponent(c))
           ),
-          `${dep.uuid}-`,
+          dep.uuid,
           dep
         );
         return {
@@ -197,7 +197,7 @@ const LeftComponentsPanel = observer(function LeftComponentsPanel() {
             type: "folder" as const,
             name: "Code components",
             key: `$code-components-folder`,
-            ...makeCompsItems(codeComponents, "$code-components-folder-"),
+            ...makeCompsItems(codeComponents, "$code-components-folder"),
           },
         ]
       : []),

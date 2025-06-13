@@ -93,6 +93,7 @@ import {
   Folder as InternalFolder,
   createFolderTreeStructure,
   getFolderTrimmed,
+  getFolderWithSlash,
   isFolder,
 } from "@/wab/shared/folders/folders-util";
 import { InsertableTemplateComponentExtraInfo } from "@/wab/shared/insertable-templates/types";
@@ -208,7 +209,7 @@ export function mapToArenaPanelRow(
       mapToArenaPanelRow(i, sectionType, onRequestAdding)
     ),
     count: item.count,
-    onAdd: onRequestAdding(sectionType, item.name),
+    onAdd: onRequestAdding(sectionType, item.path),
   };
 }
 
@@ -375,7 +376,7 @@ function NavigationDropdown_(
     (arenaType: ArenaType, folderName?: string) => async () => {
       onClose();
       let componentInfo: NewComponentInfo | undefined;
-      const folderPath = folderName && `${folderName}/`;
+      const folderPath = getFolderWithSlash(folderName);
 
       switch (arenaType) {
         case "custom":
@@ -800,7 +801,7 @@ const buildItems = computedFn(
       items: AnyArena[]
     ): ArenaPanelRow => {
       const tree = createFolderTreeStructure(items, {
-        pathPrefix: `${title}-`,
+        pathPrefix: `${title}`,
         getName: (item) => getFolderTrimmed(getArenaName(item)),
         mapper: (item) =>
           mapToArenaPanelRow(item, arenaSection, onRequestAdding),
