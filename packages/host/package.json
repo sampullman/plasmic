@@ -36,7 +36,7 @@
   ],
   "scripts": {
     "build": "./update_version.sh && rollup -c",
-    "test": "TEST_CWD=`pwd` yarn --cwd=../.. test --passWithNoTests",
+    "test": "npx jest",
     "lint": "eslint",
     "prepublishOnly": "npm run build",
     "size": "size-limit",
@@ -60,7 +60,8 @@
     "rollup": "^3.26.1",
     "rollup-plugin-banner2": "^1.2.2",
     "rollup-plugin-dts": "^5.3.0",
-    "rollup-plugin-typescript2": "^0.35.0"
+    "rollup-plugin-typescript2": "^0.35.0",
+    "ts-jest": "^29.4.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
