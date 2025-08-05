@@ -372,51 +372,22 @@ export interface EventHandlerType<P> extends PropTypeBase<P> {
   argTypes: { name: string; type: ArgType<any> }[];
 }
 
-export type ChoiceValue = string | number | boolean;
-
-export type ChoiceObject = { label: string; value: ChoiceValue };
-
-export type ChoiceOptions = ChoiceValue[] | ChoiceObject[];
-
-export interface ChoiceTypeBase<P, T> extends PropTypeBaseDefault<P, T> {
-  type: "choice";
-  options:
-    | ChoiceOptions
-    | ContextDependentConfig<
-        P,
-        | string[]
-        | {
-            label: string;
-            value: string | number | boolean;
-          }[]
-      >;
-  allowSearch?: boolean;
-  filterOption?: boolean;
-  onSearch?: ContextDependentConfig<P, ((value: string) => void) | undefined>;
-}
-
-export interface SingleChoiceType<P>
-  extends ChoiceTypeBase<P, string | number | boolean> {
-  multiSelect?: false;
-}
-
-export interface MultiChoiceType<P>
-  extends ChoiceTypeBase<P, (string | number | boolean)[]> {
-  multiSelect: true;
-}
-
-export interface CustomChoiceType<P>
-  extends ChoiceTypeBase<
-    P,
-    string | number | boolean | (string | number | boolean)[]
-  > {
-  multiSelect: ContextDependentConfig<P, boolean>;
-}
-
-export type ChoiceType<P> =
-  | SingleChoiceType<P>
-  | MultiChoiceType<P>
-  | CustomChoiceType<P>;
+import { ChoiceObject, ChoiceOptions, ChoiceValue } from "./types/choice-type";
+import {
+  ChoiceType,
+  CustomChoiceType,
+  MultiChoiceType,
+  SingleChoiceType,
+} from "./types/component-types";
+export {
+  ChoiceObject,
+  ChoiceOptions,
+  ChoiceType,
+  ChoiceValue,
+  CustomChoiceType,
+  MultiChoiceType,
+  SingleChoiceType,
+};
 
 export interface RichSlotType<P> {
   type: "slot";
