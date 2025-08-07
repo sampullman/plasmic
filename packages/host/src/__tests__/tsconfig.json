@@ -4,5 +4,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
-  "include": ["**/*"]
+  "include": ["**/*.spec-d.ts"],
+  "exclude": ["../../src/**/*.spec.ts"]
 }

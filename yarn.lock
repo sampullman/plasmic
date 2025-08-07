@@ -311,6 +311,15 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
+"@babel/code-frame@^7.15.8":
+  version "7.27.1"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.27.1.tgz#200f715e66d52a23b221a9435534a91cc13ad5be"
+  integrity sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.27.1"
+    js-tokens "^4.0.0"
+    picocolors "^1.1.1"
+
 "@babel/compat-data@^7.20.5", "@babel/compat-data@^7.22.20", "@babel/compat-data@^7.22.6", "@babel/compat-data@^7.22.9", "@babel/compat-data@^7.26.5":
   version "7.26.8"
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.26.8.tgz#821c1d35641c355284d4a870b8a4a7b0c141e367"
@@ -536,6 +545,11 @@
   version "7.25.9"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.25.9.tgz#24b64e2c3ec7cd3b3c547729b8d16871f22cbdc7"
   integrity sha512-Ed61U6XJc3CVRfkERJWDz4dJwKe7iLmmJsbOGu9wSloNSFttHV0I8g6UAgb7qnK5ly5bGLPd4oXZlxCdANBOWQ==
+
+"@babel/helper-validator-identifier@^7.27.1":
+  version "7.27.1"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.27.1.tgz#a7054dcc145a967dd4dc8fee845a57c1316c9df8"
+  integrity sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==
 
 "@babel/helper-validator-option@^7.22.15", "@babel/helper-validator-option@^7.25.9":
   version "7.25.9"
@@ -8423,6 +8437,11 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.4.tgz#0b92dcc0cc1c81f6f306a381f28e31b1a56536e9"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
+"@tsd/typescript@5.9.2":
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/@tsd/typescript/-/typescript-5.9.2.tgz#890c777abaa651e20f7c4f4782f06e81be6f9acb"
+  integrity sha512-mSMM0QtEPdMd+rdMDd17yCUYD4yI3pKHap89+jEZrZ3KIO5PhDofBjER0OtgHdvOXF74KMLO3fyD6k3Hz0v03A==
+
 "@tufjs/canonical-json@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@tufjs/canonical-json/-/canonical-json-1.0.0.tgz#eade9fd1f537993bc1f0949f3aea276ecc4fab31"
@@ -12646,6 +12665,15 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+create-jest-runner@^0.12.0:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/create-jest-runner/-/create-jest-runner-0.12.3.tgz#bcaa1f9199c5a08f112a8fab0d9637eb00cbf652"
+  integrity sha512-xrGcSrr86F2YdbrOoAZIowSYMYBpxrOrqHEvJqIpG0vsuMVcq3+OKSe7JJR1SWJFLGiMhHInPyR48+rW9ZHq9Q==
+  dependencies:
+    chalk "^4.1.0"
+    jest-worker "^29.5.0"
+    p-limit "^3.1.0"
 
 create-jest@^29.7.0:
   version "29.7.0"
@@ -18367,6 +18395,16 @@ jest-resolve@^29.7.0:
     resolve.exports "^2.0.0"
     slash "^3.0.0"
 
+jest-runner-tsd@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/jest-runner-tsd/-/jest-runner-tsd-6.0.0.tgz#dcc7e37562d2ea081c0696436a09e0f28572ba4f"
+  integrity sha512-lSzRoVqc/AwahlKFamdwO/R63Vze/xpCnab+FsNni8zmxyBt3e3py51mFE2UQBh2gSvEYwudOSHgX+xtmLynKw==
+  dependencies:
+    "@babel/code-frame" "^7.15.8"
+    chalk "^4.1.2"
+    create-jest-runner "^0.12.0"
+    tsd-lite "^0.8.0"
+
 jest-runner@^29.6.4, jest-runner@^29.7.0:
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/jest-runner/-/jest-runner-29.7.0.tgz#809af072d408a53dcfd2e849a4c976d3132f718e"
@@ -18568,7 +18606,7 @@ jest-worker@^27.4.5, jest-worker@^27.5.1:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest-worker@^29.7.0:
+jest-worker@^29.5.0, jest-worker@^29.7.0:
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-29.7.0.tgz#acad073acbbaeb7262bd5389e1bcf43e10058d4a"
   integrity sha512-eIz2msL/EzL9UFTFFx7jBTkeZfku0yUAyZZZmJ93H2TYEiroIx2PQjEXcwYtYl8zXCxb+PAmA2hLIt/6ZEkPHw==
@@ -26700,6 +26738,11 @@ tsconfig-paths@^4.1.2, tsconfig-paths@^4.2.0:
     json5 "^2.2.2"
     minimist "^1.2.6"
     strip-bom "^3.0.0"
+
+tsd-lite@^0.8.0:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/tsd-lite/-/tsd-lite-0.8.2.tgz#d89a62ec7e1551b3c1cef5ce5054fb3261fa6906"
+  integrity sha512-A1bzKLlQoWf6NkavfxYqOkbRL/B/kYsBDGUNyXqXm193mAbiXoIJxOjd84CIQ/B2dtxcy8dHat+6V//zxpGBmA==
 
 tsdx@^0.14.1:
   version "0.14.1"
