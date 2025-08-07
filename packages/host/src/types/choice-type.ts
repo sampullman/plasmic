@@ -1,10 +1,9 @@
 import {
   ComponentControlContext,
-  FunctionControlContext,
-  FunctionMeta,
-  Maybe,
   PropTypeBaseDefault,
-} from "./shared-controls";
+} from "./component-types";
+import { FunctionControlContext, FunctionMeta } from "./function-types";
+import { Maybe } from "./shared-controls";
 
 export type ChoiceValue = string | number | boolean;
 export type ChoiceObject<T> = { label: string; value: T };

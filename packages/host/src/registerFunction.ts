@@ -29,50 +29,29 @@ export interface BaseParam {
   isRestParameter?: boolean;
 }
 
-export interface ChoiceTypeBase<P, T> extends BaseParam {
-  type: "choice";
-  options:
-    | T[]
-    | {
-        label: string;
-        value: T;
-      }[]
-    | ContextDependentConfig<
-        P,
-        | T[]
-        | {
-            label: string;
-            value: T;
-          }[]
-      >;
-  allowSearch?: boolean;
-  filterOption?: boolean;
-  onSearch?: ContextDependentConfig<P, ((value: string) => void) | undefined>;
-}
-
-export interface SingleChoiceType<P, T> extends ChoiceTypeBase<P, T> {
-  multiSelect?: false;
-}
-
-export interface MultiChoiceType<P, T> extends ChoiceTypeBase<P, T[]> {
-  multiSelect: true;
-}
-
-export interface CustomChoiceType<P, T> extends ChoiceTypeBase<P, T | T[]> {
-  multiSelect: ContextDependentConfig<P, boolean>;
-}
-
-export type ChoiceType<P, T> =
-  | SingleChoiceType<P, T>
-  | MultiChoiceType<P, T>
-  | CustomChoiceType<P, T>;
+import { ChoiceObject, ChoiceOptions, ChoiceValue } from "./types/choice-type";
+import {
+  ChoiceType,
+  CustomChoiceType,
+  MultiChoiceType,
+  SingleChoiceType,
+} from "./types/function-types";
+export {
+  ChoiceObject,
+  ChoiceOptions,
+  ChoiceType,
+  ChoiceValue,
+  CustomChoiceType,
+  MultiChoiceType,
+  SingleChoiceType,
+};
 
 export interface PlainStringType<T extends Nullish<string> = string>
   extends BaseParam {
   type: "string" | `'${T}'`;
 }
 
-export type StringType<P, T extends Nullish<string> = string> =
+export type StringType<P, T extends string = string> =
   | "string"
   | PlainStringType<T>
   | ChoiceType<P, T>
@@ -83,7 +62,7 @@ export interface PlainNumberType<T extends Nullish<number> = number>
   type: "number" | `${number extends T ? number : T}`;
 }
 
-export type NumberType<P, T extends Nullish<number> = number> =
+export type NumberType<P, T extends number = number> =
   | PlainNumberType<T>
   | ChoiceType<P, T>
   | AnyType;
@@ -93,7 +72,7 @@ export interface PlainBooleanType<T extends Nullish<boolean> = boolean>
   type: "boolean" | `${boolean extends T ? boolean : T}`;
 }
 
-export type BooleanType<P, T extends Nullish<boolean> = boolean> =
+export type BooleanType<P, T extends boolean = boolean> =
   | PlainBooleanType<T>
   | ChoiceType<P, T>
   | AnyType;
@@ -165,11 +144,11 @@ type AnyTyping<P, T> = T extends string
 
 export type RestrictedType<P, T> = IsAny<T> extends true
   ? AnyTyping<P, T>
-  : [T] extends [Nullish<string>]
+  : [T] extends [string]
   ? StringType<P, T>
-  : [T] extends [Nullish<number>]
+  : [T] extends [number]
   ? NumberType<P, T>
-  : [T] extends [Nullish<boolean>]
+  : [T] extends [boolean]
   ? BooleanType<P, T>
   : CommonType<P, T>;
 

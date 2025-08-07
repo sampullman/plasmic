@@ -1,5 +1,25 @@
 import { ChoiceValue, FunctionChoiceType, ToTuple } from "./choice-type";
-import { FunctionContextConfig } from "./shared-controls";
+import {
+  CommonTypeBase,
+  ContextDependentConfig,
+  GenericContext,
+} from "./shared-controls";
+
+export type FunctionControlContext<P> = GenericContext<
+  Partial<P>, // Partial function props
+  any
+>;
+
+export type FunctionContextConfig<
+  Args extends any[],
+  R
+> = ContextDependentConfig<FunctionControlContext<Args>, R>;
+
+export interface FunctionMeta<Args extends any[] = any>
+  extends CommonTypeBase<FunctionControlContext<Args>> {
+  name: string;
+  rest?: boolean;
+}
 
 export interface SingleChoiceType<P, Opt extends ChoiceValue = ChoiceValue>
   extends FunctionChoiceType<P, Opt> {
@@ -16,7 +36,7 @@ export interface CustomChoiceType<P, Opt extends ChoiceValue = ChoiceValue>
   multiSelect: FunctionContextConfig<ToTuple<P>, boolean>;
 }
 
-export type ChoiceType<P> =
-  | SingleChoiceType<P>
-  | MultiChoiceType<P>
-  | CustomChoiceType<P>;
+export type ChoiceType<P, T extends ChoiceValue = ChoiceValue> =
+  | SingleChoiceType<P, T>
+  | MultiChoiceType<P, T>
+  | CustomChoiceType<P, T>;

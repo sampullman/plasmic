@@ -67,8 +67,7 @@ describe("custom-function param type regression tests", () => {
       name: "colors",
       type: "choice",
       multiSelect: true,
-      // T = "red" | "blue" -> options expects string[][]
-      options: [["red", "blue"], ["red"]],
+      options: ["red", "blue"],
     };
     expectType<MultiChoiceType<Ctx, "red" | "blue">>(multi);
 
