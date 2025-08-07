@@ -1,5 +1,6 @@
 import { expectAssignable, expectNotAssignable, expectType } from "tsd-lite";
 import {
+  ArgType,
   ArrayType,
   CanvasComponentProps,
   ChoiceOptions,
@@ -7,18 +8,175 @@ import {
   ChoiceValue,
   ControlContext,
   CustomChoiceType,
+  CustomControl,
+  CustomType,
+  DataPickerType,
+  DataSourceType,
+  DateRangeStringsType,
+  DateStringType,
+  EventHandlerType,
+  ExprEditorType,
+  FormValidationRulesType,
   GraphQLType,
+  ImageUrlType,
+  JSONLikeType,
   MultiChoiceType,
+  NumberType,
+  ObjectType,
   PlainStringType,
   RestrictPropType,
+  RichDataPickerType,
+  RichExprEditorType,
+  RichSlotType,
   SingleChoiceType,
+  SlotType,
   StringCompatType,
+  StringType,
 } from "../prop-types";
 
 describe("prop-types type regression tests", () => {
   it("PlainStringType keeps its discriminant", () => {
     const sample: PlainStringType<{}> = { type: "string" };
     expectType<PlainStringType<{}>>(sample);
+  });
+
+  it("StringType literal and rich variants", () => {
+    type P = {};
+
+    expectAssignable<StringType<P>>("string");
+    expectAssignable<StringType<P>>("href");
+    expectAssignable<StringType<P>>({ type: "string" } as const);
+
+    // should NOT accept numbers
+    expectNotAssignable<StringType<P>>(42);
+  });
+
+  it("NumberType literal and slider variants", () => {
+    type P = {};
+
+    expectAssignable<NumberType<P>>("number");
+    expectAssignable<NumberType<P>>({
+      type: "number",
+      control: "slider",
+      step: 0.1,
+    } as const);
+    expectNotAssignable<NumberType<P>>("string");
+  });
+
+  it("JSONLikeType accepts plain literal, ObjectType and ArrayType", () => {
+    type P = {};
+
+    const obj: ObjectType<P> = { type: "object", fields: {} };
+    const arr: ArrayType<P> = { type: "array" };
+    expectAssignable<JSONLikeType<P>>("object");
+    expectAssignable<JSONLikeType<P>>(obj);
+    expectAssignable<JSONLikeType<P>>(arr);
+  });
+
+  it("DataSourceType requires datasource", () => {
+    type P = {};
+    expectAssignable<DataSourceType<P>>({
+      type: "dataSource",
+      dataSource: "airtable",
+    } as const);
+
+    expectAssignable<DataSourceType<P>>({
+      type: "dataSource",
+      dataSource: "cms",
+    } as const);
+    expectNotAssignable<DataSourceType<P>>({ type: "dataSource" });
+  });
+
+  it("DataPickerType – literal vs rich", () => {
+    type P = {};
+
+    expectAssignable<DataPickerType<P>>("dataPicker");
+
+    const rich: RichDataPickerType<P> = {
+      type: "dataSelector",
+      data: { foo: 1 },
+      defaultValue: "foo",
+    };
+    expectAssignable<DataPickerType<P>>(rich);
+  });
+
+  it("ExprEditorType – literal vs rich", () => {
+    type P = {};
+
+    expectAssignable<ExprEditorType<P>>("exprEditor");
+
+    const rich: RichExprEditorType<P> = {
+      type: "exprEditor",
+      data: (_p: P) => ({ now: Date.now() }),
+      defaultValue: ["abc"],
+    };
+    expectAssignable<ExprEditorType<P>>(rich);
+  });
+
+  it("FormValidationRulesType basic shape", () => {
+    type P = {};
+
+    expectAssignable<FormValidationRulesType<P>>({
+      type: "formValidationRules",
+    } as const);
+  });
+
+  it("EventHandlerType with argTypes", () => {
+    type P = {};
+
+    const handler: EventHandlerType<P> = {
+      type: "eventHandler",
+      argTypes: [
+        {
+          name: "event",
+          type: { type: "string" } as ArgType<any>,
+        },
+      ],
+    };
+    expectAssignable<EventHandlerType<P>>(handler);
+  });
+
+  it("CustomType – control component and rich object", () => {
+    type P = {};
+
+    const Dummy: CustomControl<P> = (_props) => null;
+    expectAssignable<CustomType<P>>(Dummy);
+
+    expectAssignable<CustomType<P>>({
+      type: "custom",
+      control: Dummy,
+      defaultValue: 123,
+    } as const);
+  });
+
+  it("ImageUrlType literal and rich", () => {
+    type P = {};
+
+    expectAssignable<ImageUrlType<P>>("imageUrl");
+    expectAssignable<ImageUrlType<P>>({ type: "imageUrl" } as const);
+  });
+
+  it("SlotType literal and rich", () => {
+    type P = {};
+
+    expectAssignable<SlotType<P>>("slot");
+
+    const rich: RichSlotType<P> = {
+      type: "slot",
+      allowedComponents: ["Card"],
+      displayName: "Body",
+    };
+    expectAssignable<SlotType<P>>(rich);
+  });
+
+  it("DateStringType and DateRangeStringsType", () => {
+    type P = {};
+
+    expectAssignable<DateStringType<P>>({ type: "dateString" } as const);
+    expectAssignable<DateRangeStringsType<P>>({
+      type: "dateRangeStrings",
+      defaultValue: ["2025-01-01", "2025-01-31"] as [string, string],
+    } as const);
   });
 
   it("ChoiceType accepts single and multi-select variants", () => {
